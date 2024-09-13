@@ -36,14 +36,14 @@ stages:
       params.yaml:
         train.eval_data_path: assets/data/processed/final_test.csv
         train.model_path: assets/models/model.pkl
-        train.repo: ml_best_practices_with_dagshub
+        train.repo: ml_best_practices
         train.train_data_path: assets/data/processed/final_train.csv
         train.username: Ezzaldin97
     outs:
     - path: assets/models/model.pkl
       hash: md5
-      md5: 76016a2e4af0dd9325916afed9c648c3
-      size: 2438290
+      md5: f2e3c5076bc599ad56b3899e2ec59223
+      size: 7542768
   evaluate:
     cmd: python src/evaluate.py
     deps:
@@ -53,8 +53,8 @@ stages:
       size: 25031
     - path: assets/models/model.pkl
       hash: md5
-      md5: 76016a2e4af0dd9325916afed9c648c3
-      size: 2438290
+      md5: f2e3c5076bc599ad56b3899e2ec59223
+      size: 7542768
     - path: src/train.py
       hash: md5
       md5: 64f915506c6609aa6b2e11c495e3242d
@@ -67,5 +67,5 @@ stages:
     outs:
     - path: assets/results/validation_perf.json
       hash: md5
-      md5: 14f948d00afc513be860f956bba58b09
-      size: 112
+      md5: 6648094ab4bfb209d7d189663215f0c2
+      size: 123
