@@ -1,0 +1,30 @@
+name: Inference API Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Pull model file
+      run: |
+        dvc remote modify origin --local access_key_id ${{ secrets.DAGSHUB_TOKEN }}
+        dvc remote modify origin --local secret_access_key ${{ secrets.DAGSHUB_TOKEN }}
+        dvc pull
+    - name: Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: ezzaldin/litserve-inference-api:latest
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
